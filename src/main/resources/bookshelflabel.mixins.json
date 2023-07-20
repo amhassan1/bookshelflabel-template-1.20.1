@@ -5,6 +5,9 @@
 	"mixins": [
 		"ExampleMixin"
 	],
+	"client": [
+		"BookshelfLabelMixin"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	}
