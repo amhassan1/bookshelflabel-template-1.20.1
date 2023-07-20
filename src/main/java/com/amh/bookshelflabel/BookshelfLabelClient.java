@@ -37,7 +37,7 @@ public class BookshelfLabelClient implements ClientModInitializer {
 
                             enchantmentString.append(k.getName(v).getString()).append(", ");
                         }
-                        Text text = Text.of(bookString + enchantmentString.toString());
+                        Text text = Text.of(bookString + enchantmentString);
 
                         if(!enchantmentString.isEmpty())
                             player.sendMessage(text);
