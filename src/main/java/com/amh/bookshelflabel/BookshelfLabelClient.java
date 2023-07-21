@@ -19,7 +19,7 @@ public class BookshelfLabelClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
 
-        AttackBlockCallback.EVENT.register(((player, world, hand, pos, direction) -> {
+        AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
             BlockState state = world.getBlockState(pos);
             BlockEntity blockEntity = world.getBlockEntity(pos);
             if (!player.isSpectator() && state.getBlock().asItem() == Items.CHISELED_BOOKSHELF) {
@@ -46,6 +46,6 @@ public class BookshelfLabelClient implements ClientModInitializer {
                 }
             }
             return ActionResult.PASS;
-        }));
+        });
     }
 }
