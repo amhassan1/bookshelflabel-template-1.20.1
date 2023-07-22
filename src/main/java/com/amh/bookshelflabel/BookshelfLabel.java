@@ -9,9 +9,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.ChiseledBookshelfBlockEntity;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
@@ -87,7 +84,6 @@ public class BookshelfLabel implements ModInitializer {
 
 			for (ServerPlayerEntity player: players) {
 				HitResult hitResult = MinecraftClient.getInstance().crosshairTarget;
-				TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
 				World world = player.getWorld();
 
 				if(hitResult == null) {
