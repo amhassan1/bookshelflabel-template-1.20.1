@@ -13,6 +13,7 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
@@ -34,48 +35,6 @@ public class BookshelfLabel implements ModInitializer {
 	public void onInitialize() {
 		LOGGER.info("Hello Fabric world!");
 
-//		HudRenderCallback.EVENT.register((drawContext, tickDelta) -> {
-//			TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-//			HitResult hitResult = MinecraftClient.getInstance().crosshairTarget;
-//			ClientWorld clientWorld = MinecraftClient.getInstance().world;
-//
-//			if(clientWorld == null) {
-//				return;
-//			}
-//
-//			if (hitResult == null) {
-//				return;
-//			}
-//
-//
-//			if (hitResult.getType() == HitResult.Type.BLOCK) {
-//				BlockPos blockPos = ((BlockHitResult) hitResult).getBlockPos();
-//				BlockState blockState = clientWorld.getBlockState(blockPos);
-//				BlockEntity blockEntity = clientWorld.getBlockEntity(blockPos);
-//
-//				if (blockState.getBlock().asItem() == Items.CHISELED_BOOKSHELF) {
-//					ChiseledBookshelfBlockEntity bookshelfBlockEntity = (ChiseledBookshelfBlockEntity) blockEntity;
-//
-//					if (bookshelfBlockEntity != null) {
-//						for (int i = 0; i < 6; i++) {
-//							ItemStack itemStack = bookshelfBlockEntity.getStack(i);
-//							Map<Enchantment, Integer> enchantments = EnchantmentHelper.get(itemStack);
-//
-//							String bookString = "Book " + (i + 1) + ": ";
-//							StringBuilder enchantmentString = new StringBuilder();
-//							for (Map.Entry<Enchantment, Integer> entry : enchantments.entrySet()) {
-//								Enchantment k = entry.getKey();
-//								Integer v = entry.getValue();
-//
-//								enchantmentString.append(k.getName(v).getString()).append(", ");
-//							}
-//
-//							drawContext.drawText(textRenderer, bookString + enchantmentString, 0, textRenderer.fontHeight*i, 14737632, false);
-//						}
-//					}
-//				}
-//			}
-//		});
 		List<String> stringList = new ArrayList<>();
 
 		ServerTickEvents.START_WORLD_TICK.register((server)-> {
@@ -108,8 +67,12 @@ public class BookshelfLabel implements ModInitializer {
 									Enchantment k = entry.getKey();
 									Integer v = entry.getValue();
 
-									enchantmentString.append(k.getName(v).getString()).append(", ");
+									enchantmentString.append( k.getName(v).getString() ).append(", ");
 								}
+								if(enchantmentString.isEmpty() && itemStack.isIn(ItemTags.BOOKSHELF_BOOKS)) {
+									enchantmentString.append( itemStack.getName().getString());
+								}
+
 								stringList.add(bookString + enchantmentString);
 							}
 						}
