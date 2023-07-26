@@ -1,6 +1,7 @@
 package com.amh.bookshelflabel;
 
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
@@ -11,13 +12,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
 public class BookshelfLabelClient implements ClientModInitializer {
 
+    public static final String MOD_ID = "bookshelflabel";
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     @Override
     public void onInitializeClient() {
+
+        BookshelfHudClient bookshelfHudClient = new BookshelfHudClient();
+        HudRenderCallback.EVENT.register(bookshelfHudClient);
 
         AttackBlockCallback.EVENT.register((player, world, hand, pos, direction) -> {
             BlockState state = world.getBlockState(pos);
